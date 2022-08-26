@@ -1,0 +1,15 @@
+So when you see the pointer.
+
+Ok from Computer, it is just memory address.
+And it can store value.
+Every value can be found that it has an address.
+So having a way that we use the address to access the variable, 
+and change value.
+
+
+How gonna computer to store an element list?
+Computer is smart, if computer remember the first element address,
+then it is recorded for the first element, and computer should know the 
+count of the list, so that computer can make a linear storage method.
+
+And use the 
