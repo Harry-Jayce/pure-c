@@ -1,0 +1,21 @@
+
+0x 0d
+
+write a program from 0x to 0d
+and reverse transform.
+
+
+
+# write a code like the process when human transform hex to dec.
+# in a human way
+api:
+int hex2dec(int num)
+int dec2hex(int num)
+
+process:
+Hex2dec: 4 D 2
+4 * 16 ^ 2 + 13 * 16 ^ 1 + 2;
+
+1. get the last digit.
+
+

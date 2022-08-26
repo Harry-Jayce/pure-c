@@ -1,0 +1,22 @@
+# no change itself
+# no sense statements
+{
+x and 1 == x
+x or 0 == x
+x ^ 0 == x
+}
+
+# set to 0
+# clear the bit
+{
+x and 0 == 0
+x and !x == 0
+x ^ x == 0
+}
+
+# set to 1
+{
+x or 1 == 1
+x or !x == 1
+x ^ !x == 1
+}

@@ -1,0 +1,2 @@
+in print_star_lay.c
+we can easy find that 

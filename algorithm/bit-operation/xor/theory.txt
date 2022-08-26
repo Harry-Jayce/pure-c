@@ -1,0 +1,39 @@
+      | XOR
+0 ^ 0 | 0   
+0 ^ 1 | 1
+1 ^ 0 | 1
+1 ^ 1 | 0
+
+       | XOR
+// with self
+X ^ X  | 0
+X ^ !X | 1
+// with const
+X ^ 0  | X  
+X ^ 1  | !X
+
+
+// change and recover the b
+b ^ a ^ a == b ^ (a ^ a) == b ^ 0 == b
+
+// change and invert the b
+b ^ a ^ !a == b ^ 1 == !b
+
+# use xor to invert a value
+x ^= 1 
+#same as  
+x = !x
+
+# use xor to swap 2 value
+swap
+{
+    t = a;
+    a = b;
+    b = t;    
+}
+swap(int a, int b)
+{
+    a ^= b; // a is x1 ^ x2 and x1 == a
+    b ^= a; // b is x1 ^ x2 ^ x2 == x1, b already get the x1 value
+    a ^= b; // a is x1 ^ x2 ^ x1 == x2, a already get the x2 value
+}
