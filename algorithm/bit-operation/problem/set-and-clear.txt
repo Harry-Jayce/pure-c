@@ -1,0 +1,104 @@
+
+
+A 32-bit register:
+0xFFFF FFFF
+
+常用操作：
+Single bit改变
+1. 一次改变1位 
+
+Range bit改变
+1. 一次设置连续的2位
+2. 一次设置连续的4位
+
+
+Operation:
+1. 全部清零
+2. 全部置1
+3. 设置指定位，如10，01 and 1111, 1000等。
+
+API：
+
+set_bit(int* num)
+set_bit_by2(int* num)
+set_bit_by4(int* num)
+
+1. 首先生成8位随机的hex数。
+0xB154005E
+0x6C54E98D
+0x6920002C
+0x39C69283
+0x4F6AD1E8
+0xDD7E9F96
+0x57A630D2
+0x374DF528
+0x30773168
+0xFB6F8C82
+0xE389D250
+
+------------------- cut
+num = 0x6C54E98D
+31   27   23   19   15   11   7    3  0
+0110 1100 0101 0100 1110 1001 1000 1101
+1. 将num的第7位set 0.
+hope answer == 0x6C54E90D.
+
+7    3  0
+1000 1101
+1000 0000
+
+首先make a temp align to the target bit.
+然后取反 temp
+       7[bit]
+1111...0111 1111
+
+然后and
+
+Process:
+1. align the target bit
+2. invert temp
+3. temp and source
+
+answer:
+// and 0
+void clear_bit(int* num, size_t which)
+{
+	*num &= ~(1 << which);
+}
+------------------- cut
+
+num = 0x6C54E98D
+31   27   23   19   15   11   7    3  0
+0110 1100 0101 0100 1110 1001 1000 1101
+
+0110 1100 0101 0100 1110 1001 1000 1111
+2. 将num的第1位set 1.
+hope answer == 0x6C54E98F.
+answer:
+// or 1
+void set_bit(int* num, size_t which)
+{
+	*num |= 1 << which;
+}
+
+------------------- cut
+num = 0x6C54E98D
+31   27   23   19   15   11   7    3  0
+0110 1100 0101 0100 1110 1001 1000 1101
+
+
+3. 将num的第15位的低4位 clear.
+hope answer == 6C54098D
+left shift 1 bit to add a zero to cover a bit.
+<< which + 1 - 4 
+answer:
+// and 0
+void clear_bit_by4(int* num, size_t which)
+{
+	*num &= ~(0xF << which - 3);
+}
+------------------- cut
+
+4. 将num的第15位的低2位 clear.
+hope == 0x6C54298D
+<< which + 1 - 2
