@@ -1,0 +1,7 @@
+
+
+pointer-deep.txt
+    a first overview to pointer
+
+array.txt
+    know pointer-to-array{int (*x)[];} and array of pointer{int* x[];}

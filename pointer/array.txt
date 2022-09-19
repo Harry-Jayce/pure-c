@@ -1,0 +1,112 @@
+hope you have a ground base to talk about array
+please first read the doc called "pointer deep.txt"
+
+
+now we will show more complicated condition of array.
+
+many IT interviewer like to ask such question.
+and many novice are get trapped by the c lang array.
+
+
+the first thing we wanna talk about is the connection between
+pointer and array.
+
+we will add more modifier to array, and it may confusing people.
+
+# pointer to array
+while, the more important part is the latter word has show out.
+the pointer to array is literally an array.
+and its element type is a pointer.
+if often like that:
+
+    int* x1[]
+
+
+
+# array of pointer
+the pointer is the important part. 
+if often like that:
+
+    int (*x2)[]
+
+
+
+the first difference between "pointer to array" and "array of pointer" is that
+"array of pointer" have many elements directly to index.
+"array of pointer" is such a simple condition, because it just change "int" to
+"int*". so it just store MANY address.
+
+"pointer to array" is something more difficult.
+
+let me explain it to you.
+
+we are very likely to create a formula like that:
+    define x an array
+    x // the first element address
+    x + i // the i+1 th element address
+
+    *(x + i) // we derefence the address, so it becomes the value
+
+    // formula: array square sugar
+    ///
+    *(x + i) == (x)[i]
+    ///
+
+remember that if we gonna use [] index to *(*x + i) ;
+
+we cannot change it to *x[i] ;
+
+it is wrong, because the "x" will first combine with "[]" not "*" ;
+
+
+to this code:
+    // P O I N T E R-to-ARRAY
+    // define x an pointer-to-array.
+    int(*x)[4] = &array_first_address;
+
+	int(*x)[4] = &array_first_address;
+	printf("x = %p\n", x);
+	printf("x = %p\n", *x);
+	printf("x = %d\n", **x);
+
+    // out:
+    x = 00000026401EFB38
+    x = 00000026401EFB38
+    x = 1
+---------------------------
+    
+    x // the first element address
+
+    
+    // formula: array square sugar
+    ///
+    *(*x + i) == (*x)[i]
+    ///
+you could know that, "pointer-to-array" should bind with an array.
+
+and remember that it is another value-box which can change the array value.
+by use **x = n;
+
+actually, an pointer-to-array is very similar to secondary pointer.
+
+x is same as &array_first_address, we know &array_first_address is equal to 
+array_first_address, but in syntax level, both are not same sense.
+
+we must use &array_first_address to assign value to pointer-to-array.
+
+so we know that pointer-to-array is actually a pointer which point to
+an array.
+
+also because, array is actually a pointer, so it is a secondary pointer.
+
+the array abstraction is just a method to encapsulate pointer to a more
+convenient way to operate "data collection".
+to change elements in the collection, that collection is essentially 
+controlled by the pointer, but c-standard also provide array "[]" symbol
+to operate "data collection" in a more friendly way.
+
+In most time, pointer way is too verbose, we would like to use the symbol 
+"[]" to interact with the array.
+
+
+

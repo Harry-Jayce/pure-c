@@ -1,0 +1,184 @@
+
+pointer is a represented form of memory address.
+
+
+pointer is a value-box.
+
+int a = 1;
+
+you gonna use &a to get the value-box address.
+
+also you can dereference an address by *p.
+in top example, it is *&a and it is just 'a' value.
+
+memory address are often continuous.
+and we can use ++i operation to traverse the next element.
+
+a very typical loop is here:
+
+// array define
+int x[] = {0, 0 , 0};
+
+for (i=0; i<size; i++) {
+    *(x + i)
+}
+
+if x is an array, and it can be traversed by the index.
+
+because the size is stable for each element,
+and we can use address offset to traverse the next one.
+
+and that is the definition of // x + i //.
+
+OK c provide another sugar for it, that is x[i] .
+
+after doing that, we wanna a more detailed look for // x + i //.
+because it is often very easy to explain, but not easy for writing code.
+
+first we gonna set an offset which is ensured by size.
+
+so the first time we wanna implement a compiler language sugar.
+sugar is often sweet that can bring much things we want.
+
+c provide a way to calculate the size of value-box.
+
+for example, we often have the problem that how may bytes for a type
+to store.
+we cannot say 32-bit or 4 bytes, and 64-bit or 8 bytes.
+because the size is not sure for different system.
+the better way is to use the method called // sizeof(x)
+
+in 64-bit system, many primitive type have chosen 8 bytes to store the
+int or size_t.
+
+because sizeof only return size_t.
+we use %zu to represent size_t.
+
+we could find something in <assert.h>, to test code.
+
+	int x1;
+	assert(sizeof(x1) != 4);
+
+run top code.
+in this example, we could find that the assertion has just failed.
+and the process is crash, because it is the run-time assert method.
+
+assert is a way to check if the boolean expression is only true.
+if the boolean expression is false, then process just crash.
+
+
+we first know that array use index traverse is a easy way to access pointer.
+like x[i] same as *(x+i)
+
+let us to define what is (x+i).
+if we see x is the first element address of the array, we could know that
+the next element address of the array is x + 1.
+we just print every element address to look.
+
+	int x1[] = {1, 2, 3, 4};
+	for (size_t i = 0; i < 4; i++)
+	{
+		printf("the %zu th address: %p\n", i, x1 + i);
+	}
+    // output:
+	the 0 th address : 000000FB6E8FF8B8
+	the 1 th address : 000000FB6E8FF8BC
+	the 2 th address : 000000FB6E8FF8C0
+	the 3 th address : 000000FB6E8FF8C4
+
+the first thing we need know that let us calculate 0xBC - 0xB8.
+C - 8 = 4 ;
+
+--------------------
+
+	char x2[] = "hello";
+	for (size_t i = 0; i < sizeof(x2); i++)
+	{
+		printf("char: %c\n", x2[i]);
+	}
+    // output:
+    char: h
+    char: e
+    char: l
+    char: l
+    char: o
+    char:
+    
+    // printf("char address: %p\n", x2+i);
+    // output
+    char address: 000000CF8C0FF934
+    char address: 000000CF8C0FF935
+    char address: 000000CF8C0FF936
+    char address: 000000CF8C0FF937
+    char address: 000000CF8C0FF938
+    char address: 000000CF8C0FF939
+
+so we know that the c will push a '\0' at the end of string.
+
+an actually amazing truth is appear that, the char address only plus one
+in the char array.
+
+we the truth is obvious, we wanna through tests to know how the compiler
+to allocate stack space to array elements.
+
+now we know that, in the char address example we know that,
+one char is one byte, definitely
+in the int address example we notice that,
+one address + 4 == next address, it means that 
+the whole continuous 4 bytes are used to store an int value.
+
+	printf("literal value of char： %zu\n", sizeof('x'));
+	printf("literal value of char： %zu\n", sizeof(char));
+    //output
+    // 4
+    // 1
+you will notice that a very weird fact. the top two is not equal.
+why?
+because the literal value is not same as value-box.
+compiler see value-box in a strict way.
+but compiler see literal value in vary way.
+
+a truth is that compiler cannot easily ensure the literal value belongs
+to what type, it is hard to deduce.
+
+fortunately, c++ have a way call literal-value-suffix to help compiler
+doing such type inference.
+
+in c, there is no suffix to ensure the type of literal-value.
+rather, the default type of literal-value was defined in the history,
+in the standard. which is very old, but it truly defined that
+a char-literal-value same as a int-literal-value.
+c++ have same problems, hope we can fix it not too long future.
+
+
+a value-box can be reference and a pointer derefence.
+
+what condtion we called that we are using pointer reference.
+
+    int x1 = 0;
+    int* x2 = &x1;
+    *x2 = 3;
+
+the line 2 we use &x1 to reference, and that assigned a inital value to 
+pointer.
+the line 3 we use *x2 to derefence, and that accessed the value-box while 
+the x2 pointer is pointing, so that we can change the value of x1 by
+use derefence operation.
+
+there is multi-pointer like:
+    int** x2 = &x1;
+
+and it is same way, if the pointer is encapsulated by many layer, 
+we can just use many times derefence operation to access the value-box.
+or we just use many times reference value to get an address(pointer).
+
+
+
+
+
+
+
+
+
+
+

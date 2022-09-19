@@ -1,0 +1,50 @@
+printf is a very complicated problem.
+
+many people think printf is not perfect.
+
+it is not safe.
+it should remember the format-symbol to progammers,
+and it often is a unnesssary thing.
+
+it is not good, but useful in the hardware interface layer.
+
+the most defect of printf is the runtime error.
+
+printf will not check if the format-string is match to the input value-box.
+
+so it could happen many errors for the mismatch string problem.
+
+the only solution is, we need be careful to write correct form of 
+format-string and the input value-box.
+
+the common format-string rule is:
+
+-- type label
+
+%c
+    output char
+%s 
+    output string (const char*)
+%d
+    output number in decimal
+%x
+    hex number and lowercase
+%X 
+    hex number and uppercase
+%u
+    unsigned int
+%z
+    output size_t
+%zu 
+    output size_t with decimal format 
+%p
+    pointer, it always is hex
+-- 
+
+
+
+
+
+
+
+
